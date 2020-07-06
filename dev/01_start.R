@@ -15,7 +15,7 @@
 ## Add meta data about your application
 golem::fill_desc(
   pkg_name = "evInvestment", # The Name of the package containing the App 
-  pkg_title = "evInvestment", # The Title of the package containing the App 
+  pkg_title = "EV Players", # The Title of the package containing the App 
   pkg_description = "Electric Vehicle and Climate Change investment opportunity during COVID19.", # The Description of the package containing the App 
   author_first_name = "Richard", # Your First Name
   author_last_name = "Nacianceno", # Your Last Name

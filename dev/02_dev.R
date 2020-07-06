@@ -15,12 +15,22 @@
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-usethis::use_package( "thinkr" )
+usethis::use_package( "tidyverse" )
+usethis::use_package( "tidyquant" )
+usethis::use_package( "quantmod" )
+usethis::use_package( "plotly" )
+usethis::use_package( "highcharter" )
+usethis::use_package( "timetk" )
+usethis::use_package( "lubridate" )
+usethis::use_package( "readxl" )
+usethis::use_package( "PerformanceAnalytics" )
+usethis::use_package( "scales" )
+usethis::use_package( "flexdashboard" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "name_of_module1" ) # Name of the module
-golem::add_module( name = "name_of_module2" ) # Name of the module
+golem::add_module( name = "01_left_panel", fct = "helper" ) # Name of the module
+golem::add_module( name = "02_reactive_input" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*

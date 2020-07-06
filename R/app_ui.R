@@ -10,7 +10,9 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # List the first level UI elements here 
     fluidPage(
-      h1("evInvestment")
+      h1("EV Players"),
+      mod_01_left_panel_ui("01_left_panel_ui_1"),
+      mod_02_reactive_input_ui("02_reactive_input_ui_1")
     )
   )
 }
