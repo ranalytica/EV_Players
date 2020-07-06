@@ -17,16 +17,8 @@ mod_01_left_panel_ui <- function(id){
     
     sidebarLayout(
       sidebarPanel(
-        helpText("Select a stock to examine.
-
-        Information will be collected from Yahoo finance."),
-        textInput(ns("symb"), "Symbol", "SPY"),
-        
-        dateRangeInput(ns("dates"),
-                       "Date range",
-                       start = "2013-01-01",
-                       end = as.character(Sys.Date())),
-        
+        textInput(ns("symb"), "Stock Symbol", "SPY"),
+   
         br(),
         br(),
         
@@ -38,8 +30,7 @@ mod_01_left_panel_ui <- function(id){
       ),
       
       mainPanel(
-        h4("Stock Price"),
-        plotlyOutput(outputId = ns("plot"))
+       plotlyOutput(outputId = ns("plot"))
     )
     
   )
@@ -61,24 +52,28 @@ mod_01_left_panel_server <- function(input, output, session){
                to = input$dates[2])
   })
   
-  m <- list(
-    l = 50,
-    r = 50,
-    b = 100,
-    t = 100,
-    pad = 4
-  )
-  
+ 
   output$plot <- renderPlotly({
     
    p<- plot_ly(dataInput(), 
-            x=~date, y=~close, mode = "line") 
-              
-   p %>% layout(autosize =F,
-                         witdth =500,
-                         height=500,
-                         margin=5)
-    
+            x=~date, y=~close, mode = "line") %>%
+                layout(title="Price History",
+                  yaxis=list(title="Price"),
+                  xaxis=list(title="Date",
+                  rangeslider = list(type="date")))
+   
+   p1<- plot_ly(dataInput(),
+            x=~close, mode="histogram") %>% 
+              layout(title="Price Distribution",
+                yaxis=list(title="Price"),
+                xaxis=list(title="Date"))
+   
+   p3 <- plot_ly(dataInput(),
+             x=~volume, y=~close, type="scatter")
+  
+   
+   subplot(p, p1, p3, nrows = 2)
+     
   })
  
   
