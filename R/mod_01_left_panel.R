@@ -18,7 +18,7 @@ mod_01_left_panel_ui <- function(id) {
   tagList(sidebarLayout(
     sidebarPanel(textInput(ns("symb"), "Stock Symbol", "NIO"), width = 2),
     
-    mainPanel(plotlyOutput(outputId = ns("plot")))
+    mainPanel(plotly::plotlyOutput(outputId = ns("plot")))
   ))
 }
 
@@ -40,26 +40,61 @@ mod_01_left_panel_server <-
                                       ifelse(close >= open, "+ day", "- day"))
     })
     
+    
+    
     output$plot <- renderPlotly({
-      p <- plot_ly(dataInput(),
+      
+      pAnn <- list(
+        text = glue::glue(input$symb, " Price History"),
+        xref = "paper",
+        yref = "paper",
+        yanchor = "bottom",
+        xanchor = "center",
+        align = "center",
+        x = 0.5,
+        y = 1,
+        showarrow = FALSE
+      )
+      
+      p1Ann <- list(
+        text = glue::glue(input$symb, " Price Distribution"),
+        xref = "paper",
+        yref = "paper",
+        yanchor = "bottom",
+        xanchor = "center",
+        align = "center",
+        x = 0.5,
+        y = 1,
+        showarrow = FALSE)
+      
+      p3Ann <-list(
+        text = glue::glue(input$symb, " Price/Volume"),
+        xref = "paper",
+        yref = "paper",
+        yanchor = "bottom",
+        xanchor = "center",
+        align = "center",
+        x = 0.5,
+        y = 1,
+        showarrow = FALSE)
+      
+      p <- plotly::plot_ly(dataInput(),
                    x =  ~ date,
                    y =  ~ close,
                    mode = "line") %>%
-        layout(
-          title = "Price History",
+        layout(annotations =pAnn,
           yaxis = list(title = "Price"),
           xaxis = list(title = "Date")
         )
       
-      p1 <- plot_ly(dataInput(),
+      p1 <- plotly::plot_ly(dataInput(),
                     x =  ~ close, mode = "histogram") %>%
-        layout(
-          title = "Price Distribution",
-          yaxis = list(title = "Price"),
-          xaxis = list(title = "Date")
+        layout(annotations = p1Ann,
+          yaxis = list(title = "Frequency"),
+          xaxis = list(title = "Price")
         )
       
-      p3 <- plot_ly(
+      p3 <- plotly::plot_ly(
         dataInput1(),
         x =  ~ volume,
         y =  ~ close,
@@ -67,15 +102,18 @@ mod_01_left_panel_server <-
         color = ~ RedGreenDay,
         colors = c("red", "dark green"),
         opacity = .5
-      )
+      ) %>% layout(annotations = p3Ann, yaxis=list(title= "Price"))
       
-      fig <- subplot(p1, p, p3, nrows = 1, margin = .05)
-      
-      fig %>% layout(
-        title = glue(input$symb, " Price~Distribution, History and Volume"),
-        showlegend = F
-      )
-    })
+      plotly::subplot(list(p1, p, p3), 
+                      nrows = 1, 
+                      margin = .03,
+                      titleX = T,
+                      titleY = T
+                      ) %>% 
+                      plotly::layout(
+                      showlegend = F
+                      )
+      })
 }
 
 ## To be copied in the UI

@@ -16,6 +16,7 @@
 ## Run checks ----
 ## Check the package before sending to prod
 devtools::check()
+# "unlink("tests/testthat/test-golem-recommended.R")" (if error R#29)
 rhub::check_for_cran()
 
 # Deploy
