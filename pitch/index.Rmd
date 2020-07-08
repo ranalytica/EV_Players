@@ -15,6 +15,9 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(glue)
+library(DT)
+library(RedditExtractoR)
+library(gt)
 ```
 
 
@@ -165,23 +168,22 @@ p4 <- plotly::plot_ly(
 
 p4
 ```
+
 ## Future updates - Sentiment Analysis (Reddit subreddit "WallStreetBets")
 
-```{r message=FALSE, echo=FALSE, warning=FALSE}
-library(RedditExtractoR)
-library(gt)
+```{r message=FALSE, echo=FALSE, warning=FALSE, cache=TRUE}
 NIOsentiment <- reddit_urls(
-      search_terms   = "NIO STOCK",
-      page_threshold = 1,
-      sort_by = "new",
-      wait_time = 3,
-      subreddit = "wallstreetbets"
-    )
+  search_terms   = "NIO STOCK",
+  page_threshold = 1,
+  sort_by = "new",
+  wait_time = 3,
+  subreddit = "wallstreetbets"
+)
 
-NIOdata <- NIOsentiment %>% select(date, title, URL) %>% arrange(desc(date))
+NIOdata <-
+  NIOsentiment %>% select(date, title, URL) %>% arrange(desc(date))
 
-NIOdata <- NIOdata%>% mutate(date=dmy(date) 
-                            )
+NIOdata <- NIOdata %>% mutate(date = dmy(date))
 
 render <- c(
   "function(data, type, row){",
@@ -193,15 +195,16 @@ render <- c(
   "  }",
   "}"
 )
-library(DT)
-datatable(NIOdata, escape = FALSE, filter = list(position = "top"), 
-          options = list(
-            columnDefs = list(
-              list(targets = 2, render = JS(render)),
-              list(targets = 3, visible = FALSE)
-            )
-          )
-)
+
+ DT::datatable(NIOdata,
+  escape = FALSE,
+  filter = list(position = "top"),
+  options = list(
+    columnDefs = list(
+    list(targets = 2, render = JS(render)),
+    list(targets = 3, visible = FALSE)))) %>%
+DT::formatStyle(columns = colnames(NIOdata), fontSize = '50%')
+
  # reference [How to filter columns containing hyperlinks in r DT](https://stackoverflow.com/questions/45596315/how-to-filter-columns-containing-hyperlinks-in-r-dt)
 ```
 
