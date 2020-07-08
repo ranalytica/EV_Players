@@ -35,7 +35,7 @@ mod_01_left_panel_ui <- function(id) {
 #'
 #' @noRd
 mod_01_left_panel_server <-
-  function(input, output, session, dataInput) {
+  function(input, output, session, symb) {
     ns <- session$ns
     
     dataInput <- reactive({
@@ -53,7 +53,7 @@ mod_01_left_panel_server <-
     
     output$plot <- renderPlotly({
       
-      pAnn <- list(
+      p1Ann <- list(
         text = glue::glue(input$symb, " Price History"),
         xref = "paper",
         yref = "paper",
@@ -65,7 +65,7 @@ mod_01_left_panel_server <-
         showarrow = FALSE
       )
       
-      p1Ann <- list(
+      p2Ann <- list(
         text = glue::glue(input$symb, " Price Distribution"),
         xref = "paper",
         yref = "paper",
@@ -73,7 +73,7 @@ mod_01_left_panel_server <-
         xanchor = "center",
         align = "center",
         x = 0.5,
-        y = 1,
+        y = .8,
         showarrow = FALSE)
       
       p3Ann <-list(
@@ -84,7 +84,7 @@ mod_01_left_panel_server <-
         xanchor = "center",
         align = "center",
         x = 0.5,
-        y = .8,
+        y = 1,
         showarrow = FALSE)
       
       p4Ann <-list(
@@ -95,23 +95,23 @@ mod_01_left_panel_server <-
         xanchor = "center",
         align = "center",
         x = 0.5,
-        y = 1,
+        y = .8,
         showarrow = FALSE)
       
-      p <- plotly::plot_ly(dataInput(),
+      p1 <- plotly::plot_ly(dataInput(),
                    x =  ~ date,
                    y =  ~ close,
                    mode = "line") %>%
-        layout(annotations =pAnn,
+        layout(annotations =p1Ann,
           yaxis = list(title = "Price"),
           xaxis = list(title = "")
         )
       
-      p1 <- plotly::plot_ly(dataInput(),
+      p2 <- plotly::plot_ly(dataInput(),
                     x =  ~ close, mode = "histogram") %>%
-        layout(annotations = p1Ann,
+        layout(annotations = p2Ann,
           yaxis = list(title = "Frequency"),
-          xaxis = list(title = "Price")
+          xaxis = list(title = "")
         )
       
       p3 <- plotly::plot_ly(
@@ -124,7 +124,7 @@ mod_01_left_panel_server <-
         opacity = .5
       ) %>% layout(annotations = p3Ann, 
                    yaxis=list(title= "Price")
-                   ,xaxis = list(title = ""))
+                   ,xaxis = list(title = "Volume"))
       
       p4 <- plotly::plot_ly(
         dataInput1(),
@@ -138,9 +138,9 @@ mod_01_left_panel_server <-
                    yaxis=list(title= "Volume"),
                    xaxis = list(title = "Date"))
       
-      plotly::subplot(list(p, p3, p1, p4), 
+      plotly::subplot(list(p1, p2, p4, p3), 
                       nrows = 2, 
-                      margin = .05,
+                      margin = .07,
                       titleX = T,
                       titleY = T
                       ) %>% 

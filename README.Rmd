@@ -19,14 +19,20 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of evInvestment is to ...
+The goal of evInvestment (Electric Vehicle but you can view any publicly traded company) is to take a quick glance of publicly traded companies key metrics in the following areas:
+
+1. Price History
+2. Distribution of Price
+3. Trade Volume History
+4. Price vs. Volume
 
 ## Installation
 
 You can install the released version of evInvestment from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("evInvestment")
+library(devtools)
+devtools::install_github("ranalytica/EV_Players")
 ```
 
 ## Example
@@ -35,21 +41,9 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(evInvestment)
-## basic example code
+run_app()
+## enjoy and like my github pages  
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Please see description to see all dependencies contained in the evInvestment.  
 
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!

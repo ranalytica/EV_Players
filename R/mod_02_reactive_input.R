@@ -26,7 +26,7 @@ mod_02_reactive_input_ui <- function(id){
 #' 02_reactive_input Server Function
 #'
 #' @noRd 
-mod_02_reactive_input_server <- function(input, output, session, RedditLinks){
+mod_02_reactive_input_server <- function(input, output, session, symb, RedditLinks){
   ns <- session$ns
   
 RedditLinks <- reactive({ 
