@@ -24,7 +24,8 @@ mod_01_left_panel_ui <- function(id) {
                    start = "2013-01-01",
                    end = as.character(Sys.Date())),width=2),
     
-    mainPanel(plotly::plotlyOutput(outputId = ns("plot")))
+    mainPanel(plotly::plotlyOutput(outputId = ns("plot")),
+              gt_output(ns("tbl")))
   ))
 }
 
@@ -147,6 +148,7 @@ mod_01_left_panel_server <-
                       showlegend = F
                       )
       })
+   
 }
 
 ## To be copied in the UI

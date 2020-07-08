@@ -67,9 +67,13 @@ link() %>% gt() %>% tab_header(
   
   }) 
 
-output$tbl = gt::render_gt(
-  gt_link()
-)
+output$tbl = gt::render_gt({ 
+  
+    gt_link()
+  })
+  
+  
+
 }
     
 ## To be copied in the UI
