@@ -27,7 +27,8 @@ Imports:
     ggplot2,
     dplyr,
     RedditExtractoR,
-    gt
+    gt,
+    pkgload
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

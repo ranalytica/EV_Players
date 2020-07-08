@@ -35,15 +35,15 @@ library(devtools)
 devtools::install_github("ranalytica/EV_Players")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Run the package
 
 ```{r example}
 library(evInvestment)
 run_app()
-## enjoy and like my github pages  
+
 ```
 
-Please see description to see all dependencies contained in the evInvestment.  
+Please see description to see all dependencies contained in the evInvestment. 
+
+![Shiny Site](./shiny.png) [view website](https://ranalytica.shinyapps.io/evInvestment/){target="_blank"} 
 

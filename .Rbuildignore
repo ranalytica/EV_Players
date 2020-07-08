@@ -8,3 +8,5 @@ $run_dev.*
 ^CODE_OF_CONDUCT\.md$
 ^Dockerfile$
 ^LICENSE\.md$
+^app\.R$
+^rsconnect$

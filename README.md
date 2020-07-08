@@ -28,9 +28,7 @@ library(devtools)
 devtools::install_github("ranalytica/EV_Players")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Run the package
 
 ``` r
 library(evInvestment)
@@ -48,9 +46,8 @@ Shiny applications not supported in static R Markdown documents
 
 <!--/html_preserve-->
 
-``` r
-## enjoy and like my github pages  
-```
-
 Please see description to see all dependencies contained in the
 evInvestment.
+
+![Shiny Site](./shiny.png) [view
+website](https://ranalytica.shinyapps.io/evInvestment/)

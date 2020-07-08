@@ -1,0 +1,219 @@
+---
+title: "evInvestment package"
+author: "Richard Nacianceno"
+date: "7/8/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+library(tidyquant)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(glue)
+```
+
+
+## Purpose of evInvestment Package
+
+The goal of evInvestment ("Electric Vehicle Investment") is to take a quick glance of publicly EV companies (you can review any stock) traded companies key metrics in the following areas:
+
+1. Price History
+2. Distribution of Price
+3. Trade Volume History
+4. Price vs. Volume
+
+## Price History
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+NIO <- tq_get("NIO")
+
+NIO <- NIO %>% dplyr::mutate(RedGreenDay =
+                                      ifelse(close >= open, "+ DAY", "- DAY"))
+
+p1Ann <- list(
+        text = ("NIO Price History"),
+        xref = "paper",
+        yref = "paper",
+        yanchor = "bottom",
+        xanchor = "center",
+        align = "center",
+        x = 0.5,
+        y = 1,
+        showarrow = FALSE
+      )
+
+p1 <- plotly::plot_ly(NIO,
+                   x =  ~ date,
+                   y =  ~ close,
+                   mode = "line") %>%
+        layout(annotations =p1Ann,
+          yaxis = list(title = "Price"),
+          
+          xaxis = list(title = "Date"),
+          
+          rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 mo",
+            step = "month",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "1 yr",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+          rangeslider = list(type = "date")
+        )
+p1
+
+```
+
+
+## Distribution of Price
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+p2Ann <- list(
+        text = ("NIO Price Distribution"),
+        xref = "paper",
+        yref = "paper",
+        yanchor = "bottom",
+        xanchor = "center",
+        align = "center",
+        x = 0.5,
+        y = 1,
+        showarrow = FALSE)
+
+p2 <- plotly::plot_ly(NIO,
+                    x =  ~ close, mode = "histogram") %>%
+        layout(annotations = p2Ann,
+          yaxis = list(title = "Frequency"),
+          xaxis = list(title = "Price")
+        )
+p2
+```
+
+## Trade Volume History
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+ p3Ann <-list(
+        text = ("NIO Price/Volume"),
+        xref = "paper",
+        yref = "paper",
+        yanchor = "bottom",
+        xanchor = "center",
+        align = "center",
+        x = 0.5,
+        y = 1,
+        showarrow = FALSE)
+
+p3 <- plotly::plot_ly(
+        NIO,
+        x =  ~ volume,
+        y =  ~ close,
+        type = "scatter",
+        color = ~ RedGreenDay,
+        colors = c("red", "dark green"),
+        opacity = .5
+      ) %>% layout(annotations = p3Ann, 
+                   yaxis=list(title= "Price")
+                   ,xaxis = list(title = "Volume"))
+ p3
+```
+
+## Price vs. Volume
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+ p4Ann <-list(
+        text = ("NIO Volume/Date"),
+        xref = "paper",
+        yref = "paper",
+        yanchor = "bottom",
+        xanchor = "center",
+        align = "center",
+        x = 0.5,
+        y = 1,
+        showarrow = FALSE)
+
+p4 <- plotly::plot_ly(
+        NIO,
+        x =  ~ date,
+        y =  ~ volume,
+        type = "scatter",
+        color = ~ RedGreenDay,
+        colors = c("red", "dark green"),
+        opacity = .5
+      ) %>% layout(annotations = p4Ann, 
+                   yaxis=list(title= "Volume"),
+                   xaxis = list(title = "Date"))
+
+p4
+```
+## Future updates - Sentiment Analysis (Reddit subreddit "WallStreetBets")
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+library(RedditExtractoR)
+library(gt)
+NIOsentiment <- reddit_urls(
+      search_terms   = "NIO STOCK",
+      page_threshold = 1,
+      sort_by = "new",
+      wait_time = 3,
+      subreddit = "wallstreetbets"
+    )
+
+NIOdata <- NIOsentiment %>% select(date, title, URL) %>% arrange(desc(date))
+
+NIOdata <- NIOdata%>% mutate(date=dmy(date) 
+                            )
+
+render <- c(
+  "function(data, type, row){",
+  "  if(type === 'display'){",
+  "    var a = '<a href=\"' + row[3] + '\">' + data + '</a>';",
+  "    return a;",
+  "  } else {",
+  "    return data;",
+  "  }",
+  "}"
+)
+library(DT)
+datatable(NIOdata, escape = FALSE, filter = list(position = "top"), 
+          options = list(
+            columnDefs = list(
+              list(targets = 2, render = JS(render)),
+              list(targets = 3, visible = FALSE)
+            )
+          )
+)
+ # reference [How to filter columns containing hyperlinks in r DT](https://stackoverflow.com/questions/45596315/how-to-filter-columns-containing-hyperlinks-in-r-dt)
+```
+
+## Summary
+
+- evInvestment is basic tool for stock analysis
+- This package is to satisfy skills-sets needed to pass JHU course project only
+- This is not an investment advise.
+
+
+![Github](./Octocat.png) [view mycode](https://github.com/ranalytica/EV_Players){target="_blank"} 
+
+![Rpubs](./rpubs.png) [view website](https://rpubs.com/Ranalytica/evInvestment){target="_blank"} 
+
+![Shiny Site](./shiny.png) [view website](https://ranalytica.shinyapps.io/evInvestment/){target="_blank"} 

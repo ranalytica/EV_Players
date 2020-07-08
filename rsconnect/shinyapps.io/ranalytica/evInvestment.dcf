@@ -1,0 +1,12 @@
+name: evInvestment
+title: evInvestment
+username:
+account: ranalytica
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2549733
+bundleId: 3368503
+url: https://ranalytica.shinyapps.io/evInvestment/
+when: 1594233979.57
+asMultiple: FALSE
+asStatic: FALSE
