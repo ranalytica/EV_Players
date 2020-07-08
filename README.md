@@ -20,8 +20,8 @@ key metrics in the following areas:
 
 ## Installation
 
-You can install the released version of evInvestment from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the released version of evInvestment from [github
+repo](https://github.com/ranalytica/EV_Players) with:
 
 ``` r
 library(devtools)
