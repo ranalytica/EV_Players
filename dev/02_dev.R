@@ -26,6 +26,7 @@ usethis::use_package( "PerformanceAnalytics" )
 usethis::use_package( "scales" )
 usethis::use_package( "dplyr" )
 usethis::use_package( "ggplot2" )
+usethis::use_package( "RedditExtractoR" )
 
 
 ## Add modules ----

@@ -32,7 +32,7 @@ mod_02_reactive_input_server <- function(input, output, session, RedditLinks){
 RedditLinks <- reactive({ 
   
     reddit_urls(
-      search_terms   = glue::glue(input$symb, " Stock"),
+      search_terms   = glue::glue(input$symb," STOCK"),
       page_threshold = 1,
       sort_by = "new",
       wait_time = 3,
