@@ -33,21 +33,15 @@ devtools::install_github("ranalytica/EV_Players")
 ``` r
 library(evInvestment)
 run_app()
-#> PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
 ```
 
-<!--html_preserve-->
+## Acknowledgments
 
-<div class="muted well" style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
-
-Shiny applications not supported in static R Markdown documents
-
-</div>
-
-<!--/html_preserve-->
-
-Please see description to see all dependencies contained in the
-evInvestment.
+This package is written using **[ThinkR-open’s Golem
+framework](https://github.com/ThinkR-open/golem)** together with several
+dependecies listed in the
+**[DESCRIPTION](https://github.com/ranalytica/EV_Players/blob/master/DESCRIPTION)**
+to see all dependencies contained in the evInvestment.
 
 ![Shiny Site](./shiny.png) [view
 website](https://ranalytica.shinyapps.io/evInvestment/)

@@ -37,13 +37,13 @@ devtools::install_github("ranalytica/EV_Players")
 
 ## Run the package
 
-```{r example}
+``` r
 library(evInvestment)
 run_app()
-
 ```
+## Acknowledgments
 
-Please see description to see all dependencies contained in the evInvestment. 
+This package is written using **[ThinkR-open's Golem framework](https://github.com/ThinkR-open/golem)** together with several dependecies listed in the **[DESCRIPTION](https://github.com/ranalytica/EV_Players/blob/master/DESCRIPTION)** to see all dependencies contained in the evInvestment. 
 
 ![Shiny Site](./shiny.png) [view website](https://ranalytica.shinyapps.io/evInvestment/){target="_blank"} 
 

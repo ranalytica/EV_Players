@@ -180,10 +180,12 @@ NIOsentiment <- reddit_urls(
   subreddit = "wallstreetbets"
 )
 
-NIOdata <-
-  NIOsentiment %>% select(date, title, URL) %>% arrange(desc(date))
+NIOdata <- NIOsentiment %>% mutate(date = dmy(date))
 
-NIOdata <- NIOdata %>% mutate(date = dmy(date))
+NIOdata <-
+  NIOdata %>% select(date, title, URL) %>% arrange(desc(date))
+
+
 
 render <- c(
   "function(data, type, row){",
